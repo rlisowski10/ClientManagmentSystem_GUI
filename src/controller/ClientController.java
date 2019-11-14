@@ -23,5 +23,7 @@ public class ClientController {
         this.searchView = searchView;
         this.clientView = clientView;
         this.clientManager = clientManager;
+
+        ClientFrame clientFrame = new ClientFrame(clientView, searchView, resultsView);
     }
 }
