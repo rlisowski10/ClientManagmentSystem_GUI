@@ -79,7 +79,7 @@ public class ClientView {
         phoneNumberTextField = new JTextField("", 10);
 
         clientTypeLabel = new JLabel("Client Type:");
-        String[] clientType = { "", "R", "C" };
+        String[] clientType = { "R", "C" };
         clientTypeComboBox = new JComboBox<String>(clientType);
 
         newButton = new JButton(" New ");
