@@ -10,7 +10,6 @@ public class ClientFrame {
     // ============================================================
 
     private JFrame clientFrame;
-    private GridBagLayout gbLayout;
     private GridBagConstraints gbConstraints;
 
     // ============================================================
@@ -23,11 +22,13 @@ public class ClientFrame {
         clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         clientFrame.setLayout(new GridBagLayout());
         gbConstraints = new GridBagConstraints();
-   
+
         addPanelToFrame(searchView.getPanel(), 0, 0, 1);
-        addPanelToFrame(clientView.getPanel(), 1, 0, 1);
+        addPanelToFrame(resultsView.getPanel(), 0, 1, 1);
+        addPanelToFrame(clientView.getPanel(), 1, 0, 2);
 
         clientFrame.pack();
+        clientFrame.setResizable(false);
         clientFrame.setVisible(true);
     }
 
@@ -42,8 +43,8 @@ public class ClientFrame {
     private void addPanelToFrame(JPanel panel, int gridXPos, int gridYPos, int gridHeight) {
         gbConstraints.gridx = gridXPos;
         gbConstraints.gridy = gridYPos;
-        gbConstraints.fill = GridBagConstraints.BOTH;
         gbConstraints.gridheight = gridHeight;
+        gbConstraints.anchor = GridBagConstraints.NORTHWEST;
 
         clientFrame.add(panel, gbConstraints);
     }

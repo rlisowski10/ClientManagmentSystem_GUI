@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.event.ActionListener;
 
 public class ClientView {
@@ -59,8 +61,11 @@ public class ClientView {
         gbLayout = new GridBagLayout();
         clientPanel.setLayout(gbLayout);
 
+        //Border panelBorder = BorderFactory.createLineBorder(Color.black);
+        //clientPanel.setBorder(panelBorder);
+
         gbConstraints = new GridBagConstraints();
-        gbConstraints.insets = new Insets(5, 5, 5, 5);
+        gbConstraints.insets = new Insets(10, 5, 10, 5);
     }
 
     private void createControls() {
