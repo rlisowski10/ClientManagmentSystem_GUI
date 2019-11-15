@@ -18,7 +18,8 @@ public class ClientController {
     // Constructors
     // ============================================================
 
-    public ClientController(ClientView clientView, SearchView searchView, ResultsView resultsView, ClientManager clientManager) {
+    public ClientController(ClientView clientView, SearchView searchView, ResultsView resultsView,
+            ClientManager clientManager) {
         this.clientView = clientView;
         this.searchView = searchView;
         this.clientView = clientView;
