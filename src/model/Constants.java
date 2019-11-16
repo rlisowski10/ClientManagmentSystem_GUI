@@ -10,9 +10,9 @@ package model;
  */
 public interface Constants {
 
-	// ============================================================
-	// Member Variables
-	// ============================================================
+    // ============================================================
+    // Member Variables
+    // ============================================================
 
     static final String mySQLConnection = "jdbc:mysql://localhost:3306/?verifyServerCertificate=false&useSSL=true";
     static final String databaseConnection = "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=true";
@@ -21,4 +21,6 @@ public interface Constants {
     static final String databaseTableName = "Clients";
     static final String databaseLogin = "rlisowski";
     static final String databasePassword = "jB!#63Mx7NiLWg";
+
+    static final String inputFilePath = "./src/resources/clients.txt";
 }
