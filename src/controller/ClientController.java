@@ -1,6 +1,9 @@
 package controller;
 
 import view.*;
+
+import java.util.ArrayList;
+
 import model.*;
 
 public class ClientController {
@@ -24,7 +27,16 @@ public class ClientController {
         this.searchView = searchView;
         this.clientView = clientView;
         this.clientManager = clientManager;
-
         ClientFrame clientFrame = new ClientFrame(clientView, searchView, resultsView);
+
+        resultsView.updateResultsTable(clientManager.getClientList());
+    }
+
+        // ============================================================
+    // Public Instance Methods
+    // ============================================================
+
+    public void populateResultsTable() {
+        
     }
 }

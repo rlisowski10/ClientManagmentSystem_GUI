@@ -2,8 +2,11 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ResultsView {
 
@@ -15,7 +18,7 @@ public class ResultsView {
     private GridBagLayout gbLayout;
     private GridBagConstraints gbConstraints;
     private JLabel searchResultsLabel;
-    private JList<String> resultsList;
+    private JTable resultsTable;
     private JScrollPane resultsTextAreaScrollPane;
 
     // ============================================================
@@ -36,6 +39,10 @@ public class ResultsView {
         return resultsPanel;
     }
 
+    public void updateResultsTable(ArrayList<String[]> clientList) {
+
+    }
+
     // ============================================================
     // Private Instance Methods
     // ============================================================
@@ -51,16 +58,29 @@ public class ResultsView {
 
     private void createControls() {
         searchResultsLabel = new JLabel("Search Results:");
-        String labels[] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
-        resultsList = new JList<String>(labels);
-        //resultsList = new JList<String>();
 
-        resultsTextAreaScrollPane = new JScrollPane(resultsList);
+        String columnHeadings[] = { "ID", "Name", "Type" };
+
+        DefaultTableModel dtm = new DefaultTableModel(columnHeadings, 0);
+        resultsTable = new JTable(dtm);
+        resultsTable.getColumnModel().getColumn(1).setPreferredWidth(700);
+
+        String[] item = { "A", "B", "C" };
+
+        for (int i = 0; i < 50; i++) {
+            dtm.addRow(item);
+        }
+
+        // resultsList = new JList<String>();
+
+        resultsTextAreaScrollPane = new JScrollPane(resultsTable);
+        Dimension dim = new DimensionUIResource(160, 150);
+        resultsTextAreaScrollPane.setPreferredSize(dim);
     }
 
     private void populatePanel() {
         addComponentToPanel(searchResultsLabel, 0, 0, 0, 0, 1, "West");
-        addComponentToPanel(resultsTextAreaScrollPane, 0, 1, 230, 0, 1, "West");
+        addComponentToPanel(resultsTextAreaScrollPane, 0, 1, 100, 0, 1, "West");
     }
 
     private void addComponentToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY,

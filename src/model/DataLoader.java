@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DataLoader implements Constants {
+class DataLoader implements Constants {
 
     public ArrayList<Client> loadClientData() {
         int idCounter = 0;
