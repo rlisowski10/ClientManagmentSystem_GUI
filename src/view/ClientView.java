@@ -50,9 +50,65 @@ public class ClientView {
         return clientPanel;
     }
 
+    public void setClientIDTextField(String clientID) {
+        clientIDTextField.setText(clientID);
+    }
+
+    public void setFirstNameTextField(String firstName) {
+        firstNameTextField.setText(firstName);
+    }
+
+    public String getFirstNameTextField() {
+        return firstNameTextField.getText();
+    }
+
+    public void setLastNameTextField(String lastName) {
+        lastNameTextField.setText(lastName);
+    }
+
+    public String getLastNameTextField() {
+        return lastNameTextField.getText();
+    }
+
+    public void setAddressTextField(String address) {
+        addressTextField.setText(address);
+    }
+
+    public String getAddressTextField() {
+        return addressTextField.getText();
+    }
+
+    public void setPostalCodeTextField(String postalCode) {
+        postalCodeTextField.setText(postalCode);
+    }
+
+    public String getPostalCodeTextField() {
+        return postalCodeTextField.getText();
+    }
+
+    public void setPhoneNumberTextField(String phoneNumber) {
+        phoneNumberTextField.setText(phoneNumber);
+    }
+
+    public String getPhoneNumberTextField() {
+        return phoneNumberTextField.getText();
+    }
+
+    public void setClientTypeComboBox(String clientType) {
+        clientTypeComboBox.setSelectedItem(clientType);
+    }
+
+    public String getClientTypeComboBox() {
+        return clientTypeComboBox.getSelectedItem().toString();
+    }
+
     // ============================================================
     // Public Instance Methods
     // ============================================================
+
+    public void addSaveListener(ActionListener listenForSaveButton) {
+        saveButton.addActionListener(listenForSaveButton);
+    }
 
     // ============================================================
     // Private Instance Methods
@@ -74,6 +130,7 @@ public class ClientView {
         clientInfoLabel = new JLabel("Client Information");
         clientIDLabel = new JLabel("Client ID:");
         clientIDTextField = new JTextField("", 5);
+        clientIDTextField.setEditable(false);
         firstNameLabel = new JLabel("First Name:");
         firstNameTextField = new JTextField("", 10);
         lastNameLabel = new JLabel("Last Name:");

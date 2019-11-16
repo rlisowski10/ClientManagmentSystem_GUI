@@ -9,6 +9,7 @@ public class ClientManager {
     // ============================================================
 
     DatabaseManager databaseManager;
+    Client currentClient;
 
     // ============================================================
     // Constructors
@@ -20,11 +21,43 @@ public class ClientManager {
     }
 
     // ============================================================
+    // Accessors
+    // ============================================================
+
+    public void setCurrentClient(String clientID) {
+        currentClient = databaseManager.getClientFromDB(clientID);
+    }
+
+    public String getCurrentClientFirstName() {
+        return currentClient.getFirstName();
+    }
+
+    public String getCurrentClientLastName() {
+        return currentClient.getLastName();
+    }
+
+    public String getCurrentClientAddress() {
+        return currentClient.getAddress();
+    }
+
+    public String getCurrentClientPostalCode() {
+        return currentClient.getPostalCode();
+    }
+
+    public String getCurrentClientPhoneNumber() {
+        return currentClient.getPhoneNumber();
+    }
+
+    public char getCurrentClientType() {
+        return currentClient.getClientType();
+    }
+
+    // ============================================================
     // Public Instance Methods
     // ============================================================
 
     public ArrayList<String[]> getClientList() {
-        ArrayList<Client> clientList = databaseManager.getClientsFromDB();
+        ArrayList<Client> clientList = databaseManager.getAllClientsFromDB();
         ArrayList<String[]> clientListAsStrings = new ArrayList<String[]>();
 
         for (Client client : clientList) {
@@ -37,6 +70,17 @@ public class ClientManager {
         }
 
         return clientListAsStrings;
+    }
+
+    public void saveClientToDB(String firstName, String lastName, String address, String postalCode, String phoneNumber, String clientType) {
+        currentClient.setFirstName(firstName);
+        currentClient.setLastName(lastName);
+        currentClient.setAddress(address);
+        currentClient.setPostalCode(postalCode);
+        currentClient.setPhoneNumber(phoneNumber);
+        currentClient.setClientType(clientType.charAt(0));
+        
+        databaseManager.updateItemInDB(currentClient);
     }
 
     // ============================================================

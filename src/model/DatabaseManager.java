@@ -68,22 +68,33 @@ class DatabaseManager implements Constants {
         }
     }
 
-    public ArrayList<Client> getClientsFromDB() {
-        ArrayList<Client> clientList = new ArrayList<Client>();
-        String sql = "SELECT * FROM " + databaseTableName;
-
+    public void updateItemInDB(Client client) {
+        String sql = "UPDATE " + databaseTableName + " SET FIRSTNAME = ?, " + "LASTNAME = ?, " + "ADDRESS = ?, "
+                + "POSTALCODE = ?, " + "PHONENUMBER = ?, " + "CLIENTTYPE = ? " + "WHERE ID = ?;";
         try {
             PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
-            ResultSet result = pStat.executeQuery();
-
-            while (result.next()) {
-                Client newClient = new Client(result.getInt("ID"), result.getString("FIRSTNAME"), result.getString("LASTNAME"), result.getString("ADDRESS"), result.getString("POSTALCODE"), result.getString("PHONENUMBER"), result.getString("CLIENTTYPE").charAt(0));
-                clientList.add(newClient);
-            }
+            pStat.setString(1, client.getFirstName());
+            pStat.setString(2, client.getLastName());
+            pStat.setString(3, client.getAddress());
+            pStat.setString(4, client.getPostalCode());
+            pStat.setString(5, client.getPhoneNumber());
+            pStat.setString(6, Character.toString(client.getClientType()));
+            pStat.setInt(7, client.getClientID());
+            pStat.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public Client getClientFromDB(String clientID) {
+        ArrayList<Client> clientList = queryDBForClients(" WHERE ID=?", clientID);
+        Client client = clientList.get(0);
+
+        return client;
+    }
+
+    public ArrayList<Client> getAllClientsFromDB() {
+        ArrayList<Client> clientList = queryDBForClients("", null);
         return clientList;
     }
 
@@ -103,5 +114,28 @@ class DatabaseManager implements Constants {
         }
 
         return jdbc_connection;
+    }
+
+    private ArrayList<Client> queryDBForClients(String clientQuery, String clientID) {
+        String sql = "SELECT * FROM " + databaseTableName + clientQuery;
+        ArrayList<Client> clientList = new ArrayList<Client>();
+
+        try {
+            PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
+            if (clientQuery != "") {
+                pStat.setString(1, clientID);
+            }
+            ResultSet result = pStat.executeQuery();
+
+            while (result.next()) {
+                Client newClient = new Client(result.getInt("ID"), result.getString("FIRSTNAME"),
+                        result.getString("LASTNAME"), result.getString("ADDRESS"), result.getString("POSTALCODE"),
+                        result.getString("PHONENUMBER"), result.getString("CLIENTTYPE").charAt(0));
+                clientList.add(newClient);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clientList;
     }
 }

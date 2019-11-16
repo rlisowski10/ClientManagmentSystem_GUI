@@ -38,8 +38,19 @@ public class ResultsView {
     // Accessors
     // ============================================================
 
-    public JPanel getPanel() {
+    public JPanel getResultsPanel() {
         return resultsPanel;
+    }
+
+    public String getSelectedTableRowClientID() {
+        String selectedClientID = "";
+
+        if (resultsTable.getSelectedRow() != -1) {
+            // Print first column value from selected row.
+            selectedClientID = resultsTable.getValueAt(resultsTable.getSelectedRow(), 0).toString();
+        }
+
+        return selectedClientID;
     }
 
     // ============================================================
@@ -55,10 +66,13 @@ public class ResultsView {
     // ============================================================
 
     public void updateResultsTable(ArrayList<String[]> clientList) {
+        defaultTableModel.setRowCount(0);
+        
         for (String[] client : clientList) {
             defaultTableModel.addRow(client);
         }
-        
+
+        defaultTableModel.fireTableDataChanged();
     }
 
     // ============================================================

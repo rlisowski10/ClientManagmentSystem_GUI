@@ -2,9 +2,11 @@ package controller;
 
 import view.*;
 
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import model.*;
 
@@ -27,24 +29,41 @@ public class ClientController {
             ClientManager clientManager) {
         this.clientView = clientView;
         this.searchView = searchView;
-        this.clientView = clientView;
+        this.resultsView = resultsView;
         this.clientManager = clientManager;
         ClientFrame clientFrame = new ClientFrame(clientView, searchView, resultsView);
 
-        resultsView.updateResultsTable(clientManager.getClientList());
+        updateResultsTable();
         resultsView.addTableSelectionListener(new addTableSelectionListener());
+        clientView.addSaveListener(new addSaveListener());
     }
 
     // ============================================================
-    // Private Action Listeners
+    // Action Listeners
     // ============================================================
 
     private class addTableSelectionListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent lse) {
             if (!lse.getValueIsAdjusting()) {
-                System.out.println("Selection Changed");
+                String clientID = resultsView.getSelectedTableRowClientID();
+                populateClientView(clientID);
             }
+        }
+    }
+
+    private class addSaveListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String firstName = clientView.getFirstNameTextField();
+            String lastName = clientView.getLastNameTextField();
+            String address = clientView.getAddressTextField();
+            String postalCode = clientView.getPostalCodeTextField();
+            String phoneNumber = clientView.getPhoneNumberTextField();
+            String clientType = clientView.getClientTypeComboBox();
+
+            clientManager.saveClientToDB(firstName, lastName, address, postalCode, phoneNumber, clientType);
+            updateResultsTable();
         }
     }
 
@@ -52,4 +71,33 @@ public class ClientController {
     // Public Instance Methods
     // ============================================================
 
+    // ============================================================
+    // Private Instance Methods
+    // ============================================================
+
+    private void updateResultsTable() {
+        resultsView.updateResultsTable(clientManager.getClientList());
+    }
+    
+    private void populateClientView(String clientID) {
+        clientManager.setCurrentClient(clientID);
+        String firstName = clientManager.getCurrentClientFirstName();
+        String lastName = clientManager.getCurrentClientLastName();
+        String address = clientManager.getCurrentClientAddress();
+        String postalCode = clientManager.getCurrentClientPostalCode();
+        String phoneNumber = clientManager.getCurrentClientPhoneNumber();
+        String clientType = Character.toString(clientManager.getCurrentClientType());
+
+        try {
+            clientView.setClientIDTextField(clientID);
+            clientView.setFirstNameTextField(firstName);
+            clientView.setLastNameTextField(lastName);
+            clientView.setAddressTextField(address);
+            clientView.setPostalCodeTextField(postalCode);
+            clientView.setPhoneNumberTextField(phoneNumber);
+            clientView.setClientTypeComboBox(clientType);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Error: A current client has not been set.");
+        }
+    }
 }

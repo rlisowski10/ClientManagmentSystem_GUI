@@ -24,7 +24,7 @@ public class ClientFrame {
         gbConstraints = new GridBagConstraints();
 
         addPanelToFrame(searchView.getPanel(), 0, 0, 1);
-        addPanelToFrame(resultsView.getPanel(), 0, 1, 1);
+        addPanelToFrame(resultsView.getResultsPanel(), 0, 1, 1);
         addPanelToFrame(clientView.getPanel(), 1, 0, 2);
 
         clientFrame.pack();

@@ -18,7 +18,7 @@ public interface Constants {
     static final String databaseConnection = "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=true";
 
     static final String databaseName = "clientdb";
-    static final String databaseTableName = "Clients";
+    static final String databaseTableName = "clients";
     static final String databaseLogin = "rlisowski";
     static final String databasePassword = "jB!#63Mx7NiLWg";
 
