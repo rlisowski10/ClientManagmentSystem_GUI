@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +22,7 @@ public class ResultsView {
     private JLabel searchResultsLabel;
     private JTable resultsTable;
     private JScrollPane resultsTextAreaScrollPane;
+    private DefaultTableModel defaultTableModel;
 
     // ============================================================
     // Constructors
@@ -32,15 +35,30 @@ public class ResultsView {
     }
 
     // ============================================================
-    // Public Instance Methods
+    // Accessors
     // ============================================================
 
     public JPanel getPanel() {
         return resultsPanel;
     }
 
-    public void updateResultsTable(ArrayList<String[]> clientList) {
+    // ============================================================
+    // Action Listeners
+    // ============================================================
 
+    public void addTableSelectionListener(ListSelectionListener listenForTableSelection) {
+        resultsTable.getSelectionModel().addListSelectionListener(listenForTableSelection);
+    }
+
+    // ============================================================
+    // Public Instance Methods
+    // ============================================================
+
+    public void updateResultsTable(ArrayList<String[]> clientList) {
+        for (String[] client : clientList) {
+            defaultTableModel.addRow(client);
+        }
+        
     }
 
     // ============================================================
@@ -61,17 +79,9 @@ public class ResultsView {
 
         String columnHeadings[] = { "ID", "Name", "Type" };
 
-        DefaultTableModel dtm = new DefaultTableModel(columnHeadings, 0);
-        resultsTable = new JTable(dtm);
+        defaultTableModel = new DefaultTableModel(columnHeadings, 0);
+        resultsTable = new JTable(defaultTableModel);
         resultsTable.getColumnModel().getColumn(1).setPreferredWidth(700);
-
-        String[] item = { "A", "B", "C" };
-
-        for (int i = 0; i < 50; i++) {
-            dtm.addRow(item);
-        }
-
-        // resultsList = new JList<String>();
 
         resultsTextAreaScrollPane = new JScrollPane(resultsTable);
         Dimension dim = new DimensionUIResource(160, 150);

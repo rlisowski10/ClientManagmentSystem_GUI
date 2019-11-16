@@ -24,18 +24,19 @@ public class ClientManager {
     // ============================================================
 
     public ArrayList<String[]> getClientList() {
-        ArrayList<String[]> clientList = new ArrayList<String[]>();
+        ArrayList<Client> clientList = databaseManager.getClientsFromDB();
+        ArrayList<String[]> clientListAsStrings = new ArrayList<String[]>();
 
-        for (Client client : databaseManager.getClientsFromDB()) {
+        for (Client client : clientList) {
             String clientID = Integer.toString(client.getClientID());
             String clientName = client.getFirstName() + " " + client.getLastName();
             String clientType = String.valueOf(client.getClientType());
 
             String[] clientReduced = new String[] { clientID, clientName, clientType };
-            clientList.add(clientReduced);
+            clientListAsStrings.add(clientReduced);
         }
 
-        return clientList;
+        return clientListAsStrings;
     }
 
     // ============================================================

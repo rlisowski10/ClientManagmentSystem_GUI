@@ -39,12 +39,16 @@ public class SearchView {
     }
 
     // ============================================================
-    // Public Instance Methods
+    // Accessors
     // ============================================================
 
     public JPanel getPanel() {
         return searchPanel;
     }
+
+    // ============================================================
+    // Public Instance Methods
+    // ============================================================
 
     // ============================================================
     // Private Instance Methods
@@ -55,8 +59,8 @@ public class SearchView {
         gbLayout = new GridBagLayout();
         searchPanel.setLayout(gbLayout);
 
-        //Border panelBorder = BorderFactory.createLineBorder(Color.black);
-        //searchPanel.setBorder(panelBorder);
+        // Border panelBorder = BorderFactory.createLineBorder(Color.black);
+        // searchPanel.setBorder(panelBorder);
 
         gbConstraints = new GridBagConstraints();
         gbConstraints.insets = new Insets(5, 5, 5, 5);

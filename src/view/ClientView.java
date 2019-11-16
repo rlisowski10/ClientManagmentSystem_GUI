@@ -43,12 +43,16 @@ public class ClientView {
     }
 
     // ============================================================
-    // Public Instance Methods
+    // Accessors
     // ============================================================
 
     public JPanel getPanel() {
         return clientPanel;
     }
+
+    // ============================================================
+    // Public Instance Methods
+    // ============================================================
 
     // ============================================================
     // Private Instance Methods
@@ -59,8 +63,8 @@ public class ClientView {
         gbLayout = new GridBagLayout();
         clientPanel.setLayout(gbLayout);
 
-        //Border panelBorder = BorderFactory.createLineBorder(Color.black);
-        //clientPanel.setBorder(panelBorder);
+        // Border panelBorder = BorderFactory.createLineBorder(Color.black);
+        // clientPanel.setBorder(panelBorder);
 
         gbConstraints = new GridBagConstraints();
         gbConstraints.insets = new Insets(10, 5, 10, 5);

@@ -76,7 +76,7 @@ class DatabaseManager implements Constants {
             PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
             ResultSet result = pStat.executeQuery();
 
-            if (result.next()) {
+            while (result.next()) {
                 Client newClient = new Client(result.getInt("ID"), result.getString("FIRSTNAME"), result.getString("LASTNAME"), result.getString("ADDRESS"), result.getString("POSTALCODE"), result.getString("PHONENUMBER"), result.getString("CLIENTTYPE").charAt(0));
                 clientList.add(newClient);
             }
