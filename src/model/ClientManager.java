@@ -25,7 +25,7 @@ public class ClientManager {
     // ============================================================
 
     public void setCurrentClient(String clientID) {
-        currentClient = databaseManager.getClientByIDFromDB(clientID).get(0);
+        currentClient = databaseManager.getClientFromDB(clientID);
     }
 
     public String getCurrentClientFirstName() {
@@ -58,28 +58,16 @@ public class ClientManager {
 
     public ArrayList<String[]> getClientList() {
         ArrayList<Client> clientList = databaseManager.getAllClientsFromDB();
-        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
+        ArrayList<String[]> clientListAsStrings = new ArrayList<String[]>();
 
-        return clientListAsStrings;
-    }
+        for (Client client : clientList) {
+            String clientID = Integer.toString(client.getClientID());
+            String clientName = client.getFirstName() + " " + client.getLastName();
+            String clientType = String.valueOf(client.getClientType());
 
-    public ArrayList<String[]> getClientListByID(String clientID) {
-        ArrayList<Client> clientList = databaseManager.getClientByIDFromDB(clientID);
-        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
-
-        return clientListAsStrings;
-    }
-
-    public ArrayList<String[]> getClientListByLastName(String lastName) {
-        ArrayList<Client> clientList = databaseManager.getClientsByLastNameFromDB(lastName);
-        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
-
-        return clientListAsStrings;
-    }
-
-    public ArrayList<String[]> getClientListByClientType(String clientType) {
-        ArrayList<Client> clientList = databaseManager.getClientsByClientTypeFromDB(clientType);
-        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
+            String[] clientReduced = new String[] { clientID, clientName, clientType };
+            clientListAsStrings.add(clientReduced);
+        }
 
         return clientListAsStrings;
     }
@@ -131,19 +119,5 @@ public class ClientManager {
                 databaseManager.addItemToDB(client);
             }
         }
-    }
-
-    private ArrayList<String[]> clientListForDisplay(ArrayList<Client> clientList) {
-        ArrayList<String[]> clientListAsStrings = new ArrayList<String[]>();
-
-        for (Client client : clientList) {
-            String clientID = Integer.toString(client.getClientID());
-            String clientName = client.getFirstName() + " " + client.getLastName();
-            String clientType = String.valueOf(client.getClientType());
-
-            String[] clientReduced = new String[] { clientID, clientName, clientType };
-            clientListAsStrings.add(clientReduced);
-        }
-        return clientListAsStrings;
     }
 }

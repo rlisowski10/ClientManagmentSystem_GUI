@@ -66,9 +66,8 @@ public class ResultsView {
     // ============================================================
 
     public void updateResultsTable(ArrayList<String[]> clientList) {
-        resultsTable.clearSelection();
         defaultTableModel.setRowCount(0);
-
+        
         for (String[] client : clientList) {
             defaultTableModel.addRow(client);
         }

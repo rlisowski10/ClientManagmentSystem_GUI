@@ -135,7 +135,7 @@ public class ClientView {
         // clientPanel.setBorder(panelBorder);
 
         gbConstraints = new GridBagConstraints();
-        gbConstraints.insets = new Insets(14, 30, 14, 5);
+        gbConstraints.insets = new Insets(10, 5, 10, 5);
     }
 
     private void createControls() {
@@ -164,7 +164,7 @@ public class ClientView {
     }
 
     private void populatePanel() {
-        addComponentToPanel(clientInfoLabel, 0, 0, 0, 0, 1, "West");
+        addComponentToPanel(clientInfoLabel, 0, 0, 0, 20, 1, "West");
         addComponentToPanel(clientIDLabel, 0, 1, 100, 0, 1, "West");
         addComponentToPanel(clientIDTextField, 1, 1, 0, 0, 1, "West");
         addComponentToPanel(firstNameLabel, 0, 2, 0, 0, 1, "West");

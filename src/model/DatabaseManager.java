@@ -70,7 +70,7 @@ class DatabaseManager implements Constants {
 
     public void updateItemInDB(Client client) {
         String sql = "UPDATE " + databaseTableName + " SET FIRSTNAME = ?, " + "LASTNAME = ?, " + "ADDRESS = ?, "
-                + "POSTALCODE = ?, " + "PHONENUMBER = ?, " + "CLIENTTYPE = ? " + "WHERE ID LIKE ?;";
+                + "POSTALCODE = ?, " + "PHONENUMBER = ?, " + "CLIENTTYPE = ? " + "WHERE ID = ?;";
         try {
             PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
             pStat.setString(1, client.getFirstName());
@@ -86,19 +86,11 @@ class DatabaseManager implements Constants {
         }
     }
 
-    public ArrayList<Client> getClientByIDFromDB(String clientID) {
-        ArrayList<Client> clientList = queryDBForClients(" WHERE ID LIKE ?", clientID);
-        return clientList;
-    }
+    public Client getClientFromDB(String clientID) {
+        ArrayList<Client> clientList = queryDBForClients(" WHERE ID=?", clientID);
+        Client client = clientList.get(0);
 
-    public ArrayList<Client> getClientsByLastNameFromDB(String lastName) {
-        ArrayList<Client> clientList = queryDBForClients(" WHERE LASTNAME LIKE ? '%'", lastName);
-        return clientList;
-    }
-
-    public ArrayList<Client> getClientsByClientTypeFromDB(String clientType) {
-        ArrayList<Client> clientList = queryDBForClients(" WHERE CLIENTTYPE LIKE ?", clientType);
-        return clientList;
+        return client;
     }
 
     public ArrayList<Client> getAllClientsFromDB() {
@@ -107,7 +99,7 @@ class DatabaseManager implements Constants {
     }
 
     public void deleteClientFromDB(Client client) {
-        String sql = "DELETE FROM " + databaseTableName + " WHERE ID LIKE ?;";
+        String sql = "DELETE FROM " + databaseTableName + " WHERE ID = ?;";
         try {
             PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
             pStat.setInt(1, client.getClientID());
