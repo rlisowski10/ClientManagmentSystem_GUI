@@ -25,7 +25,7 @@ public class ClientManager {
     // ============================================================
 
     public void setCurrentClient(String clientID) {
-        currentClient = databaseManager.getClientFromDB(clientID);
+        currentClient = databaseManager.getClientByIDFromDB(clientID).get(0);
     }
 
     public String getCurrentClientFirstName() {
@@ -58,30 +58,41 @@ public class ClientManager {
 
     public ArrayList<String[]> getClientList() {
         ArrayList<Client> clientList = databaseManager.getAllClientsFromDB();
-        ArrayList<String[]> clientListAsStrings = new ArrayList<String[]>();
-
-        for (Client client : clientList) {
-            String clientID = Integer.toString(client.getClientID());
-            String clientName = client.getFirstName() + " " + client.getLastName();
-            String clientType = String.valueOf(client.getClientType());
-
-            String[] clientReduced = new String[] { clientID, clientName, clientType };
-            clientListAsStrings.add(clientReduced);
-        }
+        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
 
         return clientListAsStrings;
     }
 
-    public void saveExistingClient(String clientID, String firstName, String lastName, String address,
-            String postalCode, String phoneNumber, String clientType) {
-        setCurrentClientData(clientID, firstName, lastName, address, postalCode, phoneNumber, clientType);
-        databaseManager.updateItemInDB(currentClient);
+    public ArrayList<String[]> getClientListByID(String clientID) {
+        ArrayList<Client> clientList = databaseManager.getClientByIDFromDB(clientID);
+        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
+
+        return clientListAsStrings;
     }
 
-    public void saveNewClient(String clientID, String firstName, String lastName, String address, String postalCode,
+    public ArrayList<String[]> getClientListByLastName(String lastName) {
+        ArrayList<Client> clientList = databaseManager.getClientsByLastNameFromDB(lastName);
+        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
+
+        return clientListAsStrings;
+    }
+
+    public ArrayList<String[]> getClientListByClientType(String clientType) {
+        ArrayList<Client> clientList = databaseManager.getClientsByClientTypeFromDB(clientType);
+        ArrayList<String[]> clientListAsStrings = clientListForDisplay(clientList);
+
+        return clientListAsStrings;
+    }
+
+    public void saveClient(String clientID, String firstName, String lastName, String address, String postalCode,
             String phoneNumber, String clientType) {
         setCurrentClientData(clientID, firstName, lastName, address, postalCode, phoneNumber, clientType);
-        databaseManager.addItemToDB(currentClient);
+
+        if (Integer.parseInt(clientID) <= databaseManager.getMaxIDFromDB()) {
+            databaseManager.updateItemInDB(currentClient);
+        } else {
+            databaseManager.addItemToDB(currentClient);
+        }
     }
 
     private void setCurrentClientData(String clientID, String firstName, String lastName, String address,
@@ -120,5 +131,19 @@ public class ClientManager {
                 databaseManager.addItemToDB(client);
             }
         }
+    }
+
+    private ArrayList<String[]> clientListForDisplay(ArrayList<Client> clientList) {
+        ArrayList<String[]> clientListAsStrings = new ArrayList<String[]>();
+
+        for (Client client : clientList) {
+            String clientID = Integer.toString(client.getClientID());
+            String clientName = client.getFirstName() + " " + client.getLastName();
+            String clientType = String.valueOf(client.getClientType());
+
+            String[] clientReduced = new String[] { clientID, clientName, clientType };
+            clientListAsStrings.add(clientReduced);
+        }
+        return clientListAsStrings;
     }
 }

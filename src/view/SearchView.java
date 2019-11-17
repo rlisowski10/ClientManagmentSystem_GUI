@@ -17,11 +17,8 @@ public class SearchView {
     private JLabel selectSearchTypeLabel;
 
     private JRadioButton clientIDRadioButton;
-    private JLabel clientIDLabel;
     private JRadioButton lastNameRadioButton;
-    private JLabel lastNameLabel;
     private JRadioButton clientTypeRadioButton;
-    private JLabel clientTypeLabel;
 
     private JLabel searchParameterLabel;
     private JTextField searchParameterTextField;
@@ -46,9 +43,37 @@ public class SearchView {
         return searchPanel;
     }
 
+    public boolean clientIDRadioButtonStatus() {
+        return clientIDRadioButton.isSelected();
+    }
+
+    public boolean lastNameRadioButtonStatus() {
+        return lastNameRadioButton.isSelected();
+    }
+
+    public boolean clientTypeRadioButtonStatus() {
+        return clientTypeRadioButton.isSelected();
+    }
+
+    public String getSearchParameterTextField() {
+        return searchParameterTextField.getText();
+    }
+
+    public void setSearchParameterTextField(String searchParamter) {
+        searchParameterTextField.setText(searchParamter);
+    }
+
     // ============================================================
     // Public Instance Methods
     // ============================================================
+
+    public void addSearchListener(ActionListener listenForSearchButton) {
+        searchButton.addActionListener(listenForSearchButton);
+    }
+
+    public void addClearListener(ActionListener listenForClearButton) {
+        clearButton.addActionListener(listenForClearButton);
+    }
 
     // ============================================================
     // Private Instance Methods
@@ -70,12 +95,18 @@ public class SearchView {
         searchClientsLabel = new JLabel("Search Clients");
         selectSearchTypeLabel = new JLabel("Select type of search to be performed:");
 
-        clientIDRadioButton = new JRadioButton();
-        clientIDLabel = new JLabel("Client ID");
-        lastNameRadioButton = new JRadioButton();
-        lastNameLabel = new JLabel("Last Name");
-        clientTypeRadioButton = new JRadioButton();
-        clientTypeLabel = new JLabel("Client Type");
+        clientIDRadioButton = new JRadioButton("Client ID");
+        clientIDRadioButton.setSelected(true);
+        clientIDRadioButton.setFocusPainted(false);
+        lastNameRadioButton = new JRadioButton("Last Name");
+        lastNameRadioButton.setFocusPainted(false);
+        clientTypeRadioButton = new JRadioButton("Client Type");
+        clientTypeRadioButton.setFocusPainted(false);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(clientIDRadioButton);
+        group.add(lastNameRadioButton);
+        group.add(clientTypeRadioButton);
 
         searchParameterLabel = new JLabel("Enter the search parameter below:");
         searchParameterTextField = new JTextField("", 23);
@@ -84,15 +115,12 @@ public class SearchView {
     }
 
     private void populatePanel() {
-        addComponentToPanel(searchClientsLabel, 0, 0, 0, 20, 1, "West");
-        addComponentToPanel(selectSearchTypeLabel, 0, 1, 0, 0, 2, "West");
+        addComponentToPanel(searchClientsLabel, 0, 0, 0, 15, 1, "West");
+        addComponentToPanel(selectSearchTypeLabel, 0, 1, 0, 27, 2, "West");
 
-        addComponentToPanel(clientIDRadioButton, 0, 2, 0, 0, 1, "East");
-        addComponentToPanel(clientIDLabel, 1, 2, 0, 0, 1, "West");
-        addComponentToPanel(lastNameRadioButton, 0, 3, 0, 0, 1, "East");
-        addComponentToPanel(lastNameLabel, 1, 3, 0, 0, 1, "West");
-        addComponentToPanel(clientTypeRadioButton, 0, 4, 0, 0, 1, "East");
-        addComponentToPanel(clientTypeLabel, 1, 4, 0, 0, 1, "West");
+        addComponentToPanel(clientIDRadioButton, 0, 2, 0, 0, 1, "West");
+        addComponentToPanel(lastNameRadioButton, 0, 3, 0, 0, 1, "West");
+        addComponentToPanel(clientTypeRadioButton, 0, 4, 0, 0, 1, "West");
 
         addComponentToPanel(searchParameterLabel, 0, 5, 0, 0, 2, "West");
         addComponentToPanel(searchParameterTextField, 0, 6, 0, 0, 2, "West");
