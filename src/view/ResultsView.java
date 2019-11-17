@@ -67,7 +67,7 @@ public class ResultsView {
 
     public void updateResultsTable(ArrayList<String[]> clientList) {
         defaultTableModel.setRowCount(0);
-        
+
         for (String[] client : clientList) {
             defaultTableModel.addRow(client);
         }
