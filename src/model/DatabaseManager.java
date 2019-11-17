@@ -86,11 +86,19 @@ class DatabaseManager implements Constants {
         }
     }
 
-    public Client getClientFromDB(String clientID) {
-        ArrayList<Client> clientList = queryDBForClients(" WHERE ID=?", clientID);
-        Client client = clientList.get(0);
+    public ArrayList<Client> getClientByIDFromDB(String clientID) {
+        ArrayList<Client> clientList = queryDBForClients(" WHERE ID = ?", clientID);
+        return clientList;
+    }
 
-        return client;
+    public ArrayList<Client> getClientsByLastNameFromDB(String lastName) {
+        ArrayList<Client> clientList = queryDBForClients(" WHERE LASTNAME LIKE ? '%'", lastName);
+        return clientList;
+    }
+
+    public ArrayList<Client> getClientsByClientTypeFromDB(String clientType) {
+        ArrayList<Client> clientList = queryDBForClients(" WHERE CLIENTTYPE = ?", clientType);
+        return clientList;
     }
 
     public ArrayList<Client> getAllClientsFromDB() {

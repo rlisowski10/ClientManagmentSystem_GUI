@@ -39,6 +39,8 @@ public class ClientController {
         clientView.addSaveListener(new addSaveListener());
         clientView.addDeleteListener(new addDeleteListener());
         clientView.addNewClientListener(new addNewClientListener());
+        searchView.addSearchListener(new addSearchListener());
+        searchView.addClearListener(new addClearListener());
     }
 
     // ============================================================
@@ -55,6 +57,7 @@ public class ClientController {
         }
     }
 
+    // TODO: Fix the error where after editing/deleting row, clientView not clearing
     private class addSaveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -83,10 +86,33 @@ public class ClientController {
         @Override
         public void actionPerformed(ActionEvent e) {
             clearTextFields();
-            
+
             int newClientID = clientManager.getMaxID() + 1;
             String newClientIDString = Integer.toString(newClientID);
             clientView.setClientIDTextField(newClientIDString);
+        }
+    }
+
+    private class addSearchListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String searchText = searchView.getSearchParameterTextField();
+
+            if (searchView.clientIDRadioButtonStatus()) {
+                updateResultsTable(clientManager.getClientListByID(searchText));
+            } else if (searchView.lastNameRadioButtonStatus()) {
+                updateResultsTable(clientManager.getClientListByLastName(searchText));
+            } else if (searchView.clientTypeRadioButtonStatus()) {
+                updateResultsTable(clientManager.getClientListByClientType(searchText));
+            }
+        }
+    }
+
+    private class addClearListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            searchView.setSearchParameterTextField("");
+            updateResultsTable(clientManager.getClientList());
         }
     }
 
