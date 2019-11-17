@@ -98,6 +98,35 @@ class DatabaseManager implements Constants {
         return clientList;
     }
 
+    public void deleteClientFromDB(Client client) {
+        String sql = "DELETE FROM " + databaseTableName + " WHERE ID = ?;";
+        try {
+            PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
+            pStat.setInt(1, client.getClientID());
+            pStat.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getMaxIDFromDB() {
+        int maxID = 0;
+        String sql = "SELECT MAX(ID) AS 'Max' FROM " + databaseTableName;
+        
+        try {
+            PreparedStatement pStat = jdbc_connection.prepareStatement(sql);
+            ResultSet result = pStat.executeQuery();
+
+            while (result.next()) {
+                maxID = result.getInt("Max");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return maxID;
+    }
+
     // ============================================================
     // Private Instance Methods
     // ============================================================

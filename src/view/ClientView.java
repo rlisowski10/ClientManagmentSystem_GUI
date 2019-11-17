@@ -54,6 +54,10 @@ public class ClientView {
         clientIDTextField.setText(clientID);
     }
 
+    public String getClientIDTextField() {
+        return clientIDTextField.getText();
+    }
+
     public void setFirstNameTextField(String firstName) {
         firstNameTextField.setText(firstName);
     }
@@ -108,6 +112,14 @@ public class ClientView {
 
     public void addSaveListener(ActionListener listenForSaveButton) {
         saveButton.addActionListener(listenForSaveButton);
+    }
+
+    public void addDeleteListener(ActionListener listenForDeleteButton) {
+        deleteButton.addActionListener(listenForDeleteButton);
+    }
+
+    public void addNewClientListener(ActionListener listenForNewButton) {
+        newButton.addActionListener(listenForNewButton);
     }
 
     // ============================================================

@@ -72,15 +72,35 @@ public class ClientManager {
         return clientListAsStrings;
     }
 
-    public void saveClientToDB(String firstName, String lastName, String address, String postalCode, String phoneNumber, String clientType) {
+    public void saveExistingClient(String clientID, String firstName, String lastName, String address,
+            String postalCode, String phoneNumber, String clientType) {
+        setCurrentClientData(clientID, firstName, lastName, address, postalCode, phoneNumber, clientType);
+        databaseManager.updateItemInDB(currentClient);
+    }
+
+    public void saveNewClient(String clientID, String firstName, String lastName, String address, String postalCode,
+            String phoneNumber, String clientType) {
+        setCurrentClientData(clientID, firstName, lastName, address, postalCode, phoneNumber, clientType);
+        databaseManager.addItemToDB(currentClient);
+    }
+
+    private void setCurrentClientData(String clientID, String firstName, String lastName, String address,
+            String postalCode, String phoneNumber, String clientType) {
+        currentClient.setClientID(Integer.parseInt(clientID));
         currentClient.setFirstName(firstName);
         currentClient.setLastName(lastName);
         currentClient.setAddress(address);
         currentClient.setPostalCode(postalCode);
         currentClient.setPhoneNumber(phoneNumber);
         currentClient.setClientType(clientType.charAt(0));
-        
-        databaseManager.updateItemInDB(currentClient);
+    }
+
+    public void deleteClient() {
+        databaseManager.deleteClientFromDB(currentClient);
+    }
+
+    public int getMaxID() {
+        return databaseManager.getMaxIDFromDB();
     }
 
     // ============================================================
