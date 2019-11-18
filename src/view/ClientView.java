@@ -309,19 +309,19 @@ public class ClientView {
     private void populatePanel() {
         addComponentToPanel(clientInfoLabel, 0, 0, 0, 0, 1, "West");
         addComponentToPanel(clientIDLabel, 0, 1, 100, 0, 1, "West");
-        addComponentToPanel(clientIDTextField, 1, 1, 0, 0, 1, "West");
+        addComponentToPanel(clientIDTextField, 0, 1, 0, 0, 1, "East");
         addComponentToPanel(firstNameLabel, 0, 2, 0, 0, 1, "West");
-        addComponentToPanel(firstNameTextField, 1, 2, 0, 0, 1, "West");
+        addComponentToPanel(firstNameTextField, 0, 2, 44, 0, 2, "East");
         addComponentToPanel(lastNameLabel, 0, 3, 0, 0, 1, "West");
-        addComponentToPanel(lastNameTextField, 1, 3, 0, 0, 1, "West");
+        addComponentToPanel(lastNameTextField, 0, 3, 44, 0, 2, "East");
         addComponentToPanel(addressLabel, 0, 4, 0, 0, 1, "West");
-        addComponentToPanel(addressTextField, 1, 4, 0, 0, 1, "West");
+        addComponentToPanel(addressTextField, 0, 4, 44, 0, 2, "East");
         addComponentToPanel(postalCodeLabel, 0, 5, 0, 0, 1, "West");
-        addComponentToPanel(postalCodeTextField, 1, 5, 0, 0, 1, "West");
+        addComponentToPanel(postalCodeTextField, 0, 5, 44, 0, 2, "East");
         addComponentToPanel(phoneNumberLabel, 0, 6, 0, 0, 1, "West");
-        addComponentToPanel(phoneNumberTextField, 1, 6, 0, 0, 1, "West");
+        addComponentToPanel(phoneNumberTextField, 0, 6, 44, 0, 2, "East");
         addComponentToPanel(clientTypeLabel, 0, 7, 0, 0, 1, "West");
-        addComponentToPanel(clientTypeComboBox, 1, 7, 0, 0, 1, "West");
+        addComponentToPanel(clientTypeComboBox, 0, 7, 0, 0, 1, "East");
         addComponentToPanel(newButton, 0, 8, 0, 0, 2, "West");
         addComponentToPanel(saveButton, 0, 8, 0, 0, 2, "Center");
         addComponentToPanel(deleteButton, 0, 8, 0, 0, 2, "East");

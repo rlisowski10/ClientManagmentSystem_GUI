@@ -163,7 +163,7 @@ public class ClientController {
      */
     private class addClearListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {            
             // Resets the search text field, and updates the results table with all clients.
             searchView.setSearchParameterTextField("");
             updateResultsTable(clientManager.getClientList());
