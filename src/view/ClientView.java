@@ -255,6 +255,10 @@ public class ClientView {
      * validation.
      */
     private void createControls() {
+        // Provides instructions for the user related to text field validation.
+        errorLabel = new JLabel("<html>Note: Hover over a <font color=red>red</font> textbox for error info.<html>");
+        clientVerification = new ClientTextFieldValidation();
+
         clientInfoLabel = new JLabel("Client Information");
 
         clientIDLabel = new JLabel("Client ID:");
@@ -295,10 +299,6 @@ public class ClientView {
         newButton = new JButton(" New ");
         saveButton = new JButton(" Save ");
         deleteButton = new JButton("Delete");
-
-        // Provides instructions for the user related to text field validation.
-        errorLabel = new JLabel("Note: Hover over red textbox for error info.");
-        clientVerification = new ClientTextFieldValidation();
     }
 
     /**
