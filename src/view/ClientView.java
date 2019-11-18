@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.event.ActionListener;
 
 public class ClientView {
@@ -26,11 +28,13 @@ public class ClientView {
     private JTextField postalCodeTextField;
     private JLabel phoneNumberLabel;
     private JTextField phoneNumberTextField;
+    private JLabel errorLabel;
     private JLabel clientTypeLabel;
     private JComboBox<String> clientTypeComboBox;
     private JButton newButton;
     private JButton saveButton;
     private JButton deleteButton;
+    private InputVerifier clientVerification;
 
     // ============================================================
     // Constructors
@@ -139,20 +143,39 @@ public class ClientView {
     }
 
     private void createControls() {
+        errorLabel = new JLabel("Note: Hover over red textbox for error info.");
+        clientVerification = new ClientTextFieldValidation();
+        
         clientInfoLabel = new JLabel("Client Information");
+
         clientIDLabel = new JLabel("Client ID:");
         clientIDTextField = new JTextField("", 5);
         clientIDTextField.setEditable(false);
+
         firstNameLabel = new JLabel("First Name:");
         firstNameTextField = new JTextField("", 10);
+        firstNameTextField.setName("firstNameTextField");
+        firstNameTextField.setInputVerifier(clientVerification);
+
         lastNameLabel = new JLabel("Last Name:");
         lastNameTextField = new JTextField("", 10);
+        lastNameTextField.setName("lastNameTextField");
+        lastNameTextField.setInputVerifier(clientVerification);
+
         addressLabel = new JLabel("Address:");
         addressTextField = new JTextField("", 10);
+        addressTextField.setName("addressTextField");
+        addressTextField.setInputVerifier(clientVerification);
+
         postalCodeLabel = new JLabel("Postal Code:");
         postalCodeTextField = new JTextField("", 10);
+        postalCodeTextField.setName("postalCodeTextField");
+        postalCodeTextField.setInputVerifier(clientVerification);
+
         phoneNumberLabel = new JLabel("Phone Number:");
-        phoneNumberTextField = new JTextField("", 10);
+        phoneNumberTextField = new JTextField("", 10);  
+        phoneNumberTextField.setName("phoneNumberTextField");
+        phoneNumberTextField.setInputVerifier(clientVerification);      
 
         clientTypeLabel = new JLabel("Client Type:");
         String[] clientType = { "R", "C" };
@@ -182,6 +205,7 @@ public class ClientView {
         addComponentToPanel(newButton, 0, 8, 0, 0, 2, "West");
         addComponentToPanel(saveButton, 0, 8, 0, 0, 2, "Center");
         addComponentToPanel(deleteButton, 0, 8, 0, 0, 2, "East");
+        addComponentToPanel(errorLabel, 0, 9, 0, 0, 2, "West");
     }
 
     private void addComponentToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY,
