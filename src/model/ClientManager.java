@@ -122,7 +122,7 @@ public class ClientManager implements Constants{
         DataLoader dataLoader = new DataLoader();
         ArrayList<Client> clientList = dataLoader.loadClientData();
 
-        if (createNewTable) {
+        if (createNewDatabaseTable) {
             databaseManager.createClientTable();
 
             for (Client client : clientList) {

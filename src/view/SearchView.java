@@ -4,6 +4,16 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
+/**
+ * This class contains the panel and all componenets that make up the search
+ * functionality of the user interface. Components are added to the panel, and
+ * are laid-out using a GridBagLayout.
+ * <p>
+ *
+ * @author Ryan Lisowski (ID: 00257796)
+ * @version 1.0
+ * @since 2019-11-18
+ */
 public class SearchView {
 
     // ============================================================
@@ -29,6 +39,9 @@ public class SearchView {
     // Constructors
     // ============================================================
 
+    /**
+     * The constructor for the search view panel.
+     */
     public SearchView() {
         setupPanel();
         createControls();
@@ -39,38 +52,82 @@ public class SearchView {
     // Accessors
     // ============================================================
 
+    /**
+     * Gets the user-interface search panel.
+     * 
+     * @return JPanel The user-interface search panel.
+     */
     public JPanel getPanel() {
         return searchPanel;
     }
 
+    /**
+     * Returns a boolean that indicates whether the client ID radio button is
+     * active.
+     * 
+     * @return boolean Indicates whether the client ID radio button is active.
+     */
     public boolean clientIDRadioButtonStatus() {
         return clientIDRadioButton.isSelected();
     }
 
+    /**
+     * Returns a boolean that indicates whether the last name radio button is
+     * active.
+     * 
+     * @return boolean Indicates whether the last name radio button is active.
+     */
     public boolean lastNameRadioButtonStatus() {
         return lastNameRadioButton.isSelected();
     }
 
+    /**
+     * Returns a boolean that indicates whether the client type radio button is
+     * active.
+     * 
+     * @return boolean Indicates whether the client type radio button is active.
+     */
     public boolean clientTypeRadioButtonStatus() {
         return clientTypeRadioButton.isSelected();
     }
 
+    /**
+     * Gets the user-entered search parameter text.
+     * 
+     * @return String The user-entered search parameter text.
+     */
     public String getSearchParameterTextField() {
         return searchParameterTextField.getText();
     }
 
-    public void setSearchParameterTextField(String searchParamter) {
-        searchParameterTextField.setText(searchParamter);
+    /**
+     * Sets the search parameter text field to a String.
+     * 
+     * @param searchParameter The text to display in the search parameter text
+     *                        field.
+     */
+    public void setSearchParameterTextField(String searchParameter) {
+        searchParameterTextField.setText(searchParameter);
     }
 
     // ============================================================
-    // Public Instance Methods
+    // Listeners
     // ============================================================
 
+    /**
+     * Adds an action listener to the search button.
+     * 
+     * @param listenForSearchButton An action listener for the search button.
+     */
     public void addSearchListener(ActionListener listenForSearchButton) {
         searchButton.addActionListener(listenForSearchButton);
     }
 
+    /**
+     * Adds an action listener to the clear button.
+     * 
+     * @param listenForClearButton An action listener for the clear button.
+     */
     public void addClearListener(ActionListener listenForClearButton) {
         clearButton.addActionListener(listenForClearButton);
     }
@@ -79,22 +136,28 @@ public class SearchView {
     // Private Instance Methods
     // ============================================================
 
+    /**
+     * Sets up the panel by creating the Panel, GridBagLayout, and
+     * GridBagConstraints objects.
+     */
     private void setupPanel() {
         searchPanel = new JPanel();
         gbLayout = new GridBagLayout();
         searchPanel.setLayout(gbLayout);
 
-        // Border panelBorder = BorderFactory.createLineBorder(Color.black);
-        // searchPanel.setBorder(panelBorder);
-
+        // Adding insets adds a defined spacing between each UI control element.
         gbConstraints = new GridBagConstraints();
         gbConstraints.insets = new Insets(5, 5, 5, 5);
     }
 
+    /**
+     * Creates the user-interface controls for the search panel layout.
+     */
     private void createControls() {
         searchClientsLabel = new JLabel("Search Clients");
         selectSearchTypeLabel = new JLabel("Select type of search to be performed:");
 
+        // Creates the radio buttons and assigns them to a group of buttons.
         clientIDRadioButton = new JRadioButton("Client ID");
         clientIDRadioButton.setSelected(true);
         clientIDRadioButton.setFocusPainted(false);
@@ -103,6 +166,7 @@ public class SearchView {
         clientTypeRadioButton = new JRadioButton("Client Type");
         clientTypeRadioButton.setFocusPainted(false);
 
+        // Having a button group provides single-selection functionality.
         ButtonGroup group = new ButtonGroup();
         group.add(clientIDRadioButton);
         group.add(lastNameRadioButton);
@@ -114,6 +178,11 @@ public class SearchView {
         clearButton = new JButton("Clear");
     }
 
+    /**
+     * Adds all of the user-interface components to the Search panel, while
+     * specifying their grid position, padding, grid width, and position within the
+     * grid element.
+     */
     private void populatePanel() {
         addComponentToPanel(searchClientsLabel, 0, 0, 0, 15, 1, "West");
         addComponentToPanel(selectSearchTypeLabel, 0, 1, 0, 27, 2, "West");
@@ -128,6 +197,17 @@ public class SearchView {
         addComponentToPanel(clearButton, 1, 7, 0, 0, 1, "West");
     }
 
+    /**
+     * Adds a component to the Search panel.
+     * 
+     * @param component Component to be added to the search panel.
+     * @param gridXPos  Position in the GridBagLayout in the x-axis.
+     * @param gridYPos  Position in the GridBagLayout in the y-axis.
+     * @param iPadX     Padding in the x-axis.
+     * @param iPadY     Padding in the y-axis.
+     * @param gridwidth The number of grid columns that the control can lay across.
+     * @param position  The anchor position within the grid element.
+     */
     private void addComponentToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY,
             int gridwidth, String position) {
         gbConstraints.gridx = gridXPos;
@@ -142,6 +222,15 @@ public class SearchView {
         searchPanel.add(component);
     }
 
+    /**
+     * Returns an anchor position within the grid element based on a text
+     * description.
+     * 
+     * @param position The text description of the control's position within the
+     *                 grid element.
+     * @return int An int representation of the control's position within the grid
+     *         element.
+     */
     private int setPosition(String position) {
         switch (position) {
         case "West":
