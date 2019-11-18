@@ -14,7 +14,7 @@ public interface Constants {
     // Member Variables
     // ============================================================
 
-    static final String mySQLConnection = "jdbc:mysql://localhost:3306/?verifyServerCertificate=false&useSSL=true";
+    static final boolean createNewTable = true;
     static final String databaseConnection = "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=true";
 
     static final String databaseName = "clientdb";

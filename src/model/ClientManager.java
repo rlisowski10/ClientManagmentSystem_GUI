@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class ClientManager {
+public class ClientManager implements Constants{
 
     // ============================================================
     // Member Variables
@@ -122,9 +122,7 @@ public class ClientManager {
         DataLoader dataLoader = new DataLoader();
         ArrayList<Client> clientList = dataLoader.loadClientData();
 
-        // TODO: Have this check to see if both the database and table exists.
-        boolean tempTest = false;
-        if (tempTest) {
+        if (createNewTable) {
             databaseManager.createClientTable();
 
             for (Client client : clientList) {
